@@ -9,6 +9,7 @@ const Tabs = (topics) => {
     newTab.textContent = topic;
     tabsElement.appendChild(newTab);
   })
+  return tabsElement;
 
   // TASK 3
   // ---------------------
@@ -39,7 +40,7 @@ const tabsAppender = (selector) => {
   axios.get('https://lambda-times-api.herokuapp.com/topics')
   .then(result => {
     console.log(result);
-    topics = result.topics
+    topics = result.data.topics
   })
   .catch(error => {
     console.error(error);
