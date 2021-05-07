@@ -1,8 +1,6 @@
-const articleTypes = ["bootstrap", "javascript", "jquery", "node", "technology"];
 const axios = require('axios');
 
 const Card = (article) => {
-  console.log(article);
   let articleCard = document.createElement('div');
   let headlineDiv = document.createElement('div');
   let authorDiv = document.createElement('div');
