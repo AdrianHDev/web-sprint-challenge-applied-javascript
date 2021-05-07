@@ -8,6 +8,26 @@ const Tabs = (topics) => {
     newTab.classList.toggle('tab');
     newTab.textContent = topic;
     tabsElement.appendChild(newTab);
+    let toggled = true;
+    newTab.addEventListener('click', () => {
+      console.log(toggled)
+      if (topic == 'node.js') {
+        topic = 'node'
+      }
+      let theseCards = document.querySelectorAll(`.${topic}-card`);
+      if (toggled) {
+        theseCards.forEach(card => {
+          card.style.display = 'none';
+          toggled=false;
+        })
+      } else {
+        theseCards.forEach(card => {
+          card.style.removeProperty('display')
+          toggled=true;
+        })
+      }
+
+    })
   })
   return tabsElement;
 

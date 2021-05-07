@@ -7,20 +7,21 @@ const Card = (article) => {
   let imgContainer = document.createElement('div');
   let articleImg = document.createElement('img');
   let authorSpan = document.createElement('span');
-
-  headlineDiv.classList.toggle('headline');
-  articleCard.classList.toggle('card');
-  authorDiv.classList.toggle('author');
-  imgContainer.classList.toggle('img-container');
   
-  headlineDiv.textContent = article.headline;
-  authorSpan.textContent = `By ${article.authorName}`;
-  articleImg.src = article.authorPhoto;
+  headlineDiv.classList.add('headline');
+  articleCard.classList.add(`card`)
+  articleCard.classList.add(`${article[0]}-card`);
+  authorDiv.classList.add('author');
+  imgContainer.classList.add('img-container');
+  
+  headlineDiv.textContent = article[1].headline;
+  authorSpan.textContent = `By ${article[1].authorName}`;
+  articleImg.src = article[1].authorPhoto;
 
   articleCard.append(headlineDiv, authorDiv);
   authorDiv.append(imgContainer, authorSpan);
   imgContainer.appendChild(articleImg);
-  articleCard.addEventListener('click', ev => {
+  articleCard.addEventListener('click', () => {
     console.log(article.headline);
   })
   return articleCard;
@@ -58,9 +59,10 @@ const cardAppender = (selector) => {
   let articles = [] ;
   axios.get('https://lambda-times-api.herokuapp.com/articles')
   .then(result => {
-    Object.values(result.data.articles).forEach(darticles => {
-      darticles.forEach(article => {
-        articles.push(article);
+    Object.values(result.data.articles).forEach((darticles, index) => {
+      darticles.forEach((article) => {
+        articles.push([Object.keys(result.data.articles)[index], article]);
+        console.log(articles);
       })
     })
   })

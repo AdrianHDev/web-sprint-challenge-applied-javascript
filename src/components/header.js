@@ -16,9 +16,9 @@ const Header = (title, date, temp) => {
   let titleElement = document.createElement('h1');
   let tempElement = document.createElement('temp');
 
-  headerElement.classList.toggle('header');
-  dateElement.classList.toggle('date');
-  tempElement.classList.toggle('temp');
+  headerElement.classList.add('header');
+  dateElement.classList.add('date');
+  tempElement.classList.add('temp');
   dateElement.textContent = date;
   titleElement.textContent = title;
   tempElement.textContent = temp;
