@@ -2,6 +2,7 @@ const articleTypes = ["bootstrap", "javascript", "jquery", "node", "technology"]
 const axios = require('axios');
 
 const Card = (article) => {
+  console.log(article);
   let articleCard = document.createElement('div');
   let headlineDiv = document.createElement('div');
   let authorDiv = document.createElement('div');
@@ -59,17 +60,18 @@ const cardAppender = (selector) => {
   let articles = [] ;
   axios.get('https://lambda-times-api.herokuapp.com/articles')
   .then(result => {
-    articleTypes.forEach(articleType => {
-      console.log(result.data.articles);
-      articles.push(result.data.articles[articleType].forEach(article => {
+    console.log(result);
+    Object.values(result.data.articles).forEach(darticles => {
+      darticles.forEach(article => {
         articles.push(article);
-      }));
-    });
+      })
+    })
   })
   .catch(err => {
     console.error(err);
   })
   .finally(() => {
+    console.log(articles);
     articles.forEach(article => {
       elemToAppendTo.appendChild(Card(article));
     })
