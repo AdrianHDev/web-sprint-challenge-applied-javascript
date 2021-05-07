@@ -38,6 +38,7 @@ const tabsAppender = (selector) => {
   let topics;
   axios.get('https://lambda-times-api.herokuapp.com/topics')
   .then(result => {
+    console.log(result);
     topics = result.topics
   })
   .catch(error => {
