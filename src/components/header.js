@@ -11,9 +11,25 @@ const Header = (title, date, temp) => {
   //    <span class="temp">{ temp }</span>
   //  </div>
   //
+  let headerElement = document.createElement('div');
+  let dateElement = document.createElement('span');
+  let titleElement = document.createElement('h1');
+  let tempElement = document.createElement('temp');
+
+  headerElement.classList.toggle('header');
+  dateElement.classList.toggle('date');
+  tempElement.classList.toggle('temp');
+  dateElement.textContent = date;
+  titleElement.textContent = title;
+  tempElement.textContent = temp;
+
+  headerElement.append(dateElement, titleElement, tempElement);
+  return headerElement;
 }
 
 const headerAppender = (selector) => {
+  let elemToAppendTo = document.querySelector(selector);
+  elemToAppendTo.appendChild(Header('Saint Thomas', "05/7/2021","45°F"));
   // TASK 2
   // ---------------------
   // Implement this function taking a css selector as its only argument.

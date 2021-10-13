@@ -1,4 +1,30 @@
+const axios = require('axios');
+
 const Card = (article) => {
+  let articleCard = document.createElement('div');
+  let headlineDiv = document.createElement('div');
+  let authorDiv = document.createElement('div');
+  let imgContainer = document.createElement('div');
+  let articleImg = document.createElement('img');
+  let authorSpan = document.createElement('span');
+
+  headlineDiv.classList.toggle('headline');
+  articleCard.classList.toggle('card');
+  authorDiv.classList.toggle('author');
+  imgContainer.classList.toggle('img-container');
+  
+  headlineDiv.textContent = article.headline;
+  authorSpan.textContent = `By ${article.authorName}`;
+  articleImg.src = article.authorPhoto;
+
+  articleCard.append(headlineDiv, authorDiv);
+  authorDiv.append(imgContainer, authorSpan);
+  imgContainer.appendChild(articleImg);
+  articleCard.addEventListener('click', ev => {
+    console.log(article.headline);
+  })
+  return articleCard;
+
   // TASK 5
   // ---------------------
   // Implement this function, which should return the markup you see below.
@@ -20,6 +46,7 @@ const Card = (article) => {
 }
 
 const cardAppender = (selector) => {
+  let elemToAppendTo = document.querySelector(selector);
   // TASK 6
   // ---------------------
   // Implement this function that takes a css selector as its only argument.
@@ -28,6 +55,23 @@ const cardAppender = (selector) => {
   // Create a card from each and every article object in the response, using the Card component.
   // Append each card to the element in the DOM that matches the selector passed to the function.
   //
+  let articles = [] ;
+  axios.get('https://lambda-times-api.herokuapp.com/articles')
+  .then(result => {
+    Object.values(result.data.articles).forEach(darticles => {
+      darticles.forEach(article => {
+        articles.push(article);
+      })
+    })
+  })
+  .catch(err => {
+    console.error(err);
+  })
+  .finally(() => {
+    articles.forEach(article => {
+      elemToAppendTo.appendChild(Card(article));
+    })
+  })
 }
 
 export { Card, cardAppender }
